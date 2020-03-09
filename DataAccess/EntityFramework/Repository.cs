@@ -1,4 +1,4 @@
-﻿using DataAccess.Abstract;
+﻿using DataAccess.Repository;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,19 +9,21 @@ using System.Text;
 
 namespace DataAccess.EntityFramework
 {
-    public class Repository<T> : RepositoryBase, IRepository<T> where T : EntityBase
+    public class Repository<T> : IRepository<T> where T : EntityBase
     {
+        private readonly DatabaseContext _dbContext;
         private DbSet<T> _objectSet;
 
-        public Repository()
+        public Repository(DatabaseContext dbContext)
         {
-            _objectSet = context.Set<T>();
+            _dbContext = dbContext;
+            _objectSet = _dbContext.Set<T>();
         }
 
         public int Add(T entity)
         {
             _objectSet.Add(entity);
-            return context.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
         public void Delete(int id)
