@@ -5,8 +5,8 @@ using System.Text;
 
 namespace Business.ViewModels
 {
-    public class GetArticleResponse
+    public class ArticleResponse
     {
-        public Article Article{ get; set; }
+        public Article Article { get; set; }
     }
 }

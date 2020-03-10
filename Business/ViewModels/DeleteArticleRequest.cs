@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Business.ViewModels
 {
-    public class DeleteArticleArticleRequest
+    public class DeleteArticleRequest
     {
         public int Id { get; set; }
     }

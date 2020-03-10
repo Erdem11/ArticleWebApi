@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.EntityFramework.Concrete
 {
-    public class ArticleRepository: Repository<Article>, IArticleRepository<Article>
+    public class ArticleRepository: Repository<Article>, IArticleRepository
     {
         public ArticleRepository(DatabaseContext dbContext): base(dbContext)
         {

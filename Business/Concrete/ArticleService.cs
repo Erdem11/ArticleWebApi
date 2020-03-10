@@ -1,51 +1,55 @@
 ﻿using Business.Abstract;
 using Business.ViewModels;
+using DataAccess.EntityFramework.Abstract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
 {
     public class ArticleService : IArticleService
     {
-        public void AddArticle(AddArticleRequest reqModel)
+        private readonly IArticleRepository _articleRepository;
+        public ArticleService(IArticleRepository articleRepository)
         {
-            throw new NotImplementedException();
+            _articleRepository = articleRepository;
         }
 
-        public void DeleteArticle(DeleteArticleArticleRequest reqModel)
+        public ArticleResponse AddArticle(AddArticleRequest reqModel)
         {
-            throw new NotImplementedException();
+            return new ArticleResponse { Article = _articleRepository.Add(reqModel.Article) };
         }
 
-        public void FindArticle(FindArticleRequest reqModel)
+        public ArticleResponse DeleteArticle(int id)
         {
-            throw new NotImplementedException();
+            return new ArticleResponse { Article = _articleRepository.Delete(id) };
         }
 
-        public GetAllArticleResponse GetAllArticles()
+        public ArticleResponse Get(int id)
         {
-            throw new NotImplementedException();
+            return new ArticleResponse { Article = _articleRepository.Get(id) };
         }
 
-        public void GetArticle(GetArticleRequest reqModel)
+        public ArticleListResponse GetAllArticles()
         {
-            throw new NotImplementedException();
+            return new ArticleListResponse { Articles = _articleRepository.GetAll().ToList() };
         }
 
-        public GetArticleResponse GetArticle(int id)
+        public ArticleListResponse Search(string keyword)
         {
-            throw new NotImplementedException();
+            return new ArticleListResponse
+            {
+                Articles = _articleRepository.Find(
+                    x =>
+                    x.Content.ToLower().Contains(keyword.ToLower()) ||
+                    x.Title.ToLower().Contains(keyword.ToLower())).ToList()
+            };
         }
 
-        public SearchArticleResponse SearchArticle(string keyword)
+        public ArticleResponse UpdateArticle(UpdateArticleRequest reqModel)
         {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateArticle(UpdateArticleRequest reqModel)
-        {
-            throw new NotImplementedException();
+            return new ArticleResponse { Article = _articleRepository.Update(reqModel.Article);
         }
     }
 }

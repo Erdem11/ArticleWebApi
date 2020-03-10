@@ -9,10 +9,10 @@ namespace DataAccess.Repository
 {
     public interface IRepository<T> where T: EntityBase
     {
-        int Add(T entity);
+        T Add(T entity);
         T Get(int id);
-        void Update(T entity);
-        void Delete(int id);
+        T Update(T entity);
+        T Delete(int id);
         IQueryable<T> GetAll();
         IQueryable<T> Find(Expression<Func<T, bool>> predicate);
     }

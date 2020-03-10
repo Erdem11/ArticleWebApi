@@ -20,15 +20,17 @@ namespace DataAccess.EntityFramework
             _objectSet = _dbContext.Set<T>();
         }
 
-        public int Add(T entity)
+        public T Add(T entity)
         {
             _objectSet.Add(entity);
-            return _dbContext.SaveChanges();
+            return entity;
         }
 
-        public void Delete(int id)
+        public T Delete(int id)
         {
-            _objectSet.Remove(_objectSet.FirstOrDefault(x => x.Id == id));
+            var deleted = _objectSet.FirstOrDefault(x => x.Id == id);
+            _objectSet.Remove(deleted);
+            return deleted;
         }
 
         public IQueryable<T> Find(Expression<Func<T, bool>> predicate)
@@ -46,9 +48,10 @@ namespace DataAccess.EntityFramework
             return _objectSet.AsNoTracking();
         }
 
-        public void Update(T entity)
+        public T Update(T entity)
         {
             _objectSet.Update(entity);
+            return entity;
         }
     }
 }

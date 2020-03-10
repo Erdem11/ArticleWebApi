@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataAccess.EntityFramework.Abstract
 {
-    public interface IArticleRepository<T>: IRepository<T> where T: EntityBase
+    public interface IArticleRepository: IRepository<Article>
     {
     }
 }
