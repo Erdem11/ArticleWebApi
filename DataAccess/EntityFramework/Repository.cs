@@ -23,6 +23,7 @@ namespace DataAccess.EntityFramework
         public T Add(T entity)
         {
             _objectSet.Add(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
 
@@ -30,6 +31,7 @@ namespace DataAccess.EntityFramework
         {
             var deleted = _objectSet.FirstOrDefault(x => x.Id == id);
             _objectSet.Remove(deleted);
+            _dbContext.SaveChanges();
             return deleted;
         }
 
@@ -51,6 +53,7 @@ namespace DataAccess.EntityFramework
         public T Update(T entity)
         {
             _objectSet.Update(entity);
+            _dbContext.SaveChanges();
             return entity;
         }
     }

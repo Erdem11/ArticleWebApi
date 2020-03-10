@@ -18,6 +18,7 @@ namespace Business.Concrete
 
         public ArticleResponse AddArticle(AddArticleRequest reqModel)
         {
+  
             return new ArticleResponse { Article = _articleRepository.Add(reqModel.Article) };
         }
 
@@ -49,7 +50,7 @@ namespace Business.Concrete
 
         public ArticleResponse UpdateArticle(UpdateArticleRequest reqModel)
         {
-            return new ArticleResponse { Article = _articleRepository.Update(reqModel.Article);
+            return new ArticleResponse { Article = _articleRepository.Update(reqModel.Article) };
         }
     }
 }

@@ -19,50 +19,46 @@ namespace ArticleWebApi.Controllers
             _articleService = articleService;
         }
 
-        // GET: api/Article
+        [Route("~/api/Article/GetAll")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ArticleListResponse GetAll(int id)
         {
-            return new string[] { "value1", "value2" };
+            return _articleService.GetAllArticles();
         }
 
-        // GET: api/Article/5
-        [HttpGet("{id}", Name = "Get")]
-        public GetArticleResponse Get(int id)
+        [Route("~/api/Article/Get")]
+        [HttpGet]
+        public ArticleResponse Get(int id)
         {
-            return _articleService.GetArticle(id);
+            return _articleService.Get(id);
         }
 
-        [HttpPost("{i}", Name ="Post")]
-        public void AddArticle(int i)
+        [Route("~/api/Article/Search")]
+        [HttpGet]
+        public ArticleListResponse Search(string keyword)
         {
-            var addArticleRequest = new AddArticleRequest
-            {
-                Article = new Entities.Article
-                {
-                    Content = "aa",
-                    Title = "ttt"
-                }
-            };
-            _articleService.AddArticle(addArticleRequest);
+            return _articleService.Search(keyword);
         }
 
-        // POST: api/Article
+        [Route("~/api/Article/AddArticle")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ArticleResponse AddArticle([FromBody] AddArticleRequest reqModel)
         {
+            return _articleService.AddArticle(reqModel);
         }
 
-        // PUT: api/Article/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Route("~/api/Article/Update")]
+        [HttpPost]
+        public ArticleResponse Update(UpdateArticleRequest request)
         {
+            return _articleService.UpdateArticle(request);            
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("~/api/Article/Delete")]
+        [HttpPost]
+        public ArticleResponse Delete(int id)
         {
+            return _articleService.DeleteArticle(id);
         }
     }
 }
